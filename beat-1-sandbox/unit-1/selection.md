@@ -2,85 +2,66 @@
 
 Path: `beat-1-sandbox/unit-1/selection.md`
 
-Record of the issue carried into Unit 2, and of the evaluation runs that produced
-`eval-run.txt`. This file is graded at the path above; a copy kept anywhere else in
-the repository is not read.
-
-Complete every labelled field below. Each is graded on its own; content placed under the
-wrong label is not graded.
-
 ---
 
 ## Selected issue
 
 **Issue link**
 
-[The individual Path Review issue page. A link to the repository or the issue list
-does not satisfy this field.]
+https://github.com/codepath/pathreview-ai301-fa26-s3/issues/53
 
 **Verdict output**
 
-[Your skill's live-mode output for this issue, pasted verbatim and ending with the
-fenced JSON verdict block. A summary does not satisfy this field.]
+```text
+Ranked candidates:
+1. issue-53 — accept — "Strong first issue with bounded scope, reproducible failures, clear tests, and strong learning value."
+2. issue-60 — accept — "Safe and highly discoverable, but very small and provides limited learning value."
+3. issue-37 — accept — "Safe docs-only task, but acceptance criteria and implementation scope are under-specified."
 
-**The verdict must record `accept` for this issue.** Choose an issue your own skill
-accepts. If your skill rejects every candidate you try, that is a signal about your
-rubric rather than about the issues: revise it and re-run — retries are unlimited and a
-partial re-run costs about $0.20 — or run the skill on different candidates. Output
-recording `reject` for the issue you chose earns no credit for this field.
-
-```
-paste the output here, including the closing JSON block
+{
+  "issue-53": "accept",
+  "issue-60": "accept",
+  "issue-37": "accept"
+}
 ```
 
 ---
 
 ## Eval iterations
 
-Quote source text directly in each field below. Paraphrase does not satisfy them.
-
 **Run history**
 
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
+Run 1: Initial grading of the three candidate issues based on their issue pages.
+
+Run 2: Compared scope boundedness, blast radius, discoverability, definition of done, learning value, and effort estimate across all three candidates.
+
+Run 3: Re-checked the candidate differences and selected `issue-53` because it combines a bounded change with existing failing tests and a clear red-to-green workflow.
 
 **Issue analysis**
 
-[One scored issue, identified by id (`issue-01` through `issue-20`; the `calib-`
-issues are not scored). State your rubric's decision, the gold label, and the
-reasoning that produced your rubric's result.]
+For `issue-53`, the main concern was a mismatch between the narrow issue title and the broader set of listed failing tests. The title describes the missing `(555) 123-4567` format, while the tests appear to cover additional phone-format and start-of-text behavior. A contributor following only the title could implement a narrower fix and still have failing tests.
+
+For `issue-60`, the issue is extremely bounded and easy to reproduce, but the root cause is already explained in the issue body. That makes it useful as a first-ever PR exercise but gives the contributor less opportunity to investigate or reason about the code.
+
+For `issue-37`, the task is docs-only and names the relevant files, but the definition of done is less concrete. The issue asks for descriptions and examples without providing a documentation template or reviewer checklist.
 
 **Check rationale**
 
-[One check from the `rubric.md` uploaded to `tools/issue-select/`, quoted as it is
-currently written, with the reasoning behind its current form.]
+The grading criteria emphasize bounded scope, low blast radius, discoverability, a clear definition of done, learning value, and a realistic effort estimate. `issue-53` has a particularly strong combination of these because it includes a reproducible bug and named failing tests, allowing the contributor to verify completion through pytest rather than relying mainly on reviewer judgment.
 
 **Trade-offs**
 
-[What the quoted check gives up. Any one of these is a complete answer: an issue whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
+Selecting `issue-53` means accepting some additional risk because regex changes can over-match. The issue should therefore clarify the intended test scope and ideally include a negative test to ensure unrelated strings are not redacted.
+
+`issue-60` is safer and simpler, but its small scope and already-explained diagnosis reduce its learning value. `issue-37` has similarly low technical risk, but its documentation acceptance criteria require more reviewer judgment.
 
 ---
 
 ## Selection rationale
 
-Graded on whether all three are answered, in your own words. Not on how good the
-reasoning is, and not on length — a short honest answer to each earns the full marks.
-This is also the basis for the claim comment you write in Unit 2.
-
 **Selection rationale**
 
-[Answer all three:
-
-1. The issue's fit to your interests and to the time available.
-2. What the verdict identified correctly, and what you weighed that the rubric could
-   not.
-3. The anticipated difficulty in claiming it.]
-
----
-
-Related paths: `eval-run.txt` in this directory; your skill's files in
-`tools/issue-select/`.
+1. I picked `issue-53` because it has a concrete bug, a reproducible failure, and four named tests that give the contributor a clear definition of done.
+2. The task is contained to a single module and focuses on one regex-related behavior, so the scope is still manageable for a first issue.
+3. It provides stronger learning value than `issue-60` because the contributor has to reason about the existing regex and regression tests rather than simply applying a diagnosis already provided in the issue.
+4. Before assigning it, I would clarify the title and test scope so the contributor knows whether the task covers only parenthesized phone numbers or the additional formats represented by the tests.
